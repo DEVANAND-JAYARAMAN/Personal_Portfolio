@@ -91,14 +91,14 @@
                 <div class="hero-image">
                     <div class="image-container">
                         <div class="image-placeholder">
-                            <img src="profile.jpg" alt="Dev Anand Jayaraman" class="profile-image">
+                                <img src="profile.jpg" alt="Dev Anand Jayaraman" class="profile-image">
                             <div class="floating-icons">
                                 <div class="float-icon icon-1"><i class="fab fa-java"></i></div>
                                 <div class="float-icon icon-2"><i class="fab fa-aws"></i></div>
                                 <div class="float-icon icon-3"><i class="fab fa-docker"></i></div>
                                 <div class="float-icon icon-4"><i class="fab fa-python"></i></div>
                             </div>
-                        </img>
+                        </div>
                         <div class="glow-effect"></div>
                     </div>
                 </div>
@@ -562,6 +562,13 @@
                         </div>
                     </div>
                     <div class="contact-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/919952472762" target="_blank">Chat on WhatsApp</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h4>Email</h4>
@@ -603,7 +610,14 @@
                             <label for="message">Message</label>
                             <textarea id="message" name="message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div class="form-buttons">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-envelope"></i> Send via Email
+                            </button>
+                            <button type="button" id="whatsappBtn" class="btn btn-whatsapp">
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -664,6 +678,3 @@
     <script src="main.js"></script>
 </body>
 </html>
-
-
-
