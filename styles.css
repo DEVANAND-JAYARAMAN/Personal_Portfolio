@@ -441,6 +441,31 @@ ul {
     overflow: visible;
 }
 
+.profile-image {
+    width: 85%;
+    height: 85%;
+    object-fit: cover;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+    animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .code-animation {
     position: relative;
     z-index: 2;
@@ -503,13 +528,13 @@ ul {
 }
 
 .icon-2 {
-    top: 10%;
+    top: -5%;
     right: -5%;
     animation: float-2 5s ease-in-out infinite;
 }
 
 .icon-3 {
-    bottom: 10%;
+    bottom: -5%;
     right: 10%;
     animation: float-3 6s ease-in-out infinite;
 }
