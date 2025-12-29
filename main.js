@@ -453,3 +453,5 @@ sectionTitles.forEach(title => {
     title.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
     titleObserver.observe(title);
 });
+
+
