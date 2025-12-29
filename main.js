@@ -86,8 +86,16 @@ scrollTopBtn.addEventListener('click', () => {
 // ===========================
 
 const contactForm = document.getElementById('contactForm');
+const whatsappBtn = document.getElementById('whatsappBtn');
 
-contactForm.addEventListener('submit', (e) => {
+// WhatsApp Configuration
+const WHATSAPP_NUMBER = '919952472762'; // Your WhatsApp number (include country code, no + or spaces)
+
+// Web3Forms Configuration (Free email service - Get your access key from https://web3forms.com)
+const WEB3FORMS_ACCESS_KEY = '0fd55cb3-d24d-4b75-8f41-131090d97cd9';
+
+// Email Form Submission using Web3Forms
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     
     // Get form values
@@ -96,16 +104,72 @@ contactForm.addEventListener('submit', (e) => {
     const subject = document.getElementById('subject').value;
     const message = document.getElementById('message').value;
     
-    // Create mailto link with form data
-    const mailtoLink = `mailto:devanand3254@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
-    )}`;
+    // Disable submit button to prevent multiple submissions
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
     
-    // Open default email client
-    window.location.href = mailtoLink;
+    try {
+        // Create form data
+        const formData = new FormData();
+        formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('subject', subject);
+        formData.append('message', message);
+        formData.append('from_name', 'Portfolio Contact Form');
+        formData.append('redirect', 'false'); // Don't redirect after submission
+        
+        // Submit to Web3Forms
+        const response = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            alert('✅ Thank you! Your message has been sent successfully. I will get back to you soon!');
+            contactForm.reset();
+        } else {
+            throw new Error(data.message || 'Failed to send message');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Oops! Something went wrong. Please try sending via WhatsApp or email me directly at devanand3254@gmail.com');
+    } finally {
+        // Re-enable submit button
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    }
+});
+
+// WhatsApp Button Handler
+whatsappBtn.addEventListener('click', () => {
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+    
+    // Validate required fields
+    if (!name || !email || !subject || !message) {
+        alert('Please fill in all fields before sending via WhatsApp.');
+        return;
+    }
+    
+    // Create WhatsApp message
+    const whatsappMessage = `*New Message from Portfolio*\n\n*Name:* ${name}\n*Email:* ${email}\n*Subject:* ${subject}\n\n*Message:*\n${message}`;
+    
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(whatsappMessage)}`;
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank');
     
     // Show success message
-    alert('Thank you for your message! Your default email client will open.');
+    alert('Thank you! Opening WhatsApp...');
     
     // Reset form
     contactForm.reset();
@@ -453,5 +517,3 @@ sectionTitles.forEach(title => {
     title.style.transition = 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
     titleObserver.observe(title);
 });
-
-
