@@ -188,6 +188,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth',
                 block: 'start'
             });
+
+            // Flash-highlight a certification category when a summary card points to it
+            if (target.classList.contains('cert-category-title')) {
+                document.querySelectorAll('.cert-category-title.cert-highlight')
+                    .forEach(el => el.classList.remove('cert-highlight'));
+                // Re-trigger the animation reliably
+                void target.offsetWidth;
+                target.classList.add('cert-highlight');
+                setTimeout(() => target.classList.remove('cert-highlight'), 1800);
+            }
         }
     });
 });
